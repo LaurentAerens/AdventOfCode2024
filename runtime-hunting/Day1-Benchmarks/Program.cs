@@ -540,5 +540,67 @@ namespace Day1_Benchmarks
             }
             if (multlipication != 21024792) throw new Exception("Wrong answer");
         }
+        [Benchmark]
+        public void StreamingInputSolution()
+        {
+            // chalenge 1
+            // I know there are 1000 lines in the input file
+            int[] left = new int[1000];
+            int[] right = new int[1000];
+            int lineCount = 0;
+            using (StreamReader reader = new StreamReader("input.txt"))
+            {
+                while (!reader.EndOfStream)
+                {
+                    string line = reader.ReadLine();
+                    string[] parts = line.Split(new[] { "   " }, StringSplitOptions.RemoveEmptyEntries);
+                    left[lineCount] = int.Parse(parts[0]);
+                    right[lineCount] = int.Parse(parts[1]);
+                    lineCount++;
+                }
+            }
+            // now sort them both from smallest to largest
+            Array.Sort(left);
+            Array.Sort(right);
+            int difference = 0;
+            for (int i = 0; i < lineCount; i++)
+            {
+                difference += (Math.Abs(right[i] - left[i]));
+            }
+            // count up all numbers in the difference list
+            if (difference != 1879048) throw new Exception("Wrong answer");
+            // challenge 2
+            // convert right to a stack with the first element on top
+            Stack<int> rightStack = new Stack<int>(right.Reverse<int>());
+            int multlipication = 0;
+            int rightnumber = rightStack.Pop();
+            for (int i = 0; i < lineCount; i++)
+            {
+                int leftnumber = left[i];
+                int count = 0;
+                while (rightStack.Count > 0)
+                {
+                    if (rightnumber < leftnumber)
+                    {
+                        multlipication += (leftnumber * count);
+                        count = 0;
+                        rightnumber = rightStack.Pop();
+                    }
+                    else if (rightnumber > leftnumber)
+                    {
+                        multlipication += (leftnumber * count);
+                        count = 0;
+                        break;
+                    }
+                    else if (rightnumber == leftnumber)
+                    {
+                        count++;
+                        rightnumber = rightStack.Pop();
+                    }
+                }
+                multlipication += (leftnumber * count);
+            }
+            if (multlipication != 21024792) throw new Exception("Wrong answer");
+        }
     }
 }
