@@ -400,3 +400,4 @@ FodyWeavers.xsd
 *.sln.iml
 
 */input.txt
+runtime-hunting/Day1-Benchmarks/input.txt
