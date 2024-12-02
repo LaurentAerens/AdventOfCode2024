@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
+using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Exporters;
 using BenchmarkDotNet.Exporters.Csv;
 using BenchmarkDotNet.Exporters.Json;
@@ -23,7 +24,7 @@ namespace Day1_Benchmarks
             BenchmarkSwitcher.FromAssembly(typeof(Program).Assembly).Run(args, config);
         }
     }
-    [SimpleJob(RuntimeMoniker.Net90)]
+    [SimpleJob(RunStrategy.ColdStart, launchCount: 20)]
     // html, markdown, json and csv are the default exporters
     [HtmlExporter]
     [MarkdownExporterAttribute.GitHub]
