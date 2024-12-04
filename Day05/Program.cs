@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            string[] lines = File.ReadAllLines("input.txt");
         }
     }
 }
