@@ -401,3 +401,5 @@ FodyWeavers.xsd
 
 */input.txt
 runtime-hunting/Day1-Benchmarks/input.txt
+/Day05/input2.txt
+*.txt
